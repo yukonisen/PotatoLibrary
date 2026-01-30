@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div>
                     <div className="font-semibold text-on-surface">LightNovelReader</div>
                     <div className="text-xs text-secondary flex flex-wrap gap-2">
-                      <a href="#" className="hover:text-primary transition">主页</a>
+                      <a href="https://lnr.curiousers.org" className="hover:text-primary transition">主页</a>
                       <span className="text-secondary">·</span>
                       <a href="https://github.com/dmzz-yyhyy/LightNovelReader" className="hover:text-primary transition">GitHub</a>
                       <span className="text-secondary">·</span>
@@ -67,7 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="space-y-3">
                 <div className="text-sm font-semibold text-on-surface">站点信息</div>
                 <div className="text-sm text-secondary flex flex-col gap-2">
-                  <a href="https://github.com/dmzz-yyhyy/LightNovelReader" className="hover:text-primary transition">LNR 主页</a>
                   <a href="#" className="hover:text-primary transition">插件教程</a>
                   <a href="https://github.com/dmzz-yyhyy/LightNovelReader" className="hover:text-primary transition">源代码</a>
                 </div>
@@ -75,13 +74,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="space-y-3">
                 <div className="text-sm font-semibold text-on-surface">许可</div>
                 <p className="text-xs text-secondary">
-                  除非另有声明，本站内容采用 CC BY-NC 4.0 协议进行许可；第三方代码与组件遵循其各自的开源许可。
+                  除非另有声明，本站内容采用 <a href={"https://creativecommons.org/licenses/by-nc-sa/4.0/"}>BY-NC-SA
+                  4.0 </a>协议进行许可；第三方代码与组件遵循其各自的开源许可。
+                  <br/><br/>
+                  <span className="inline-flex items-center gap-1">
+                    <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" className="h-4 w-4"/>
+                    <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" className="h-4 w-4"/>
+                    <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" className="h-4 w-4"/>
+                    <img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" className="h-4 w-4"/>
+                  </span>
                 </p>
               </div>
             </div>
 
             <div className="border-t border-secondary/30 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-secondary">
-              <p>© 2026 The LightNovelReader developers. All Rights Reserved.</p>
+              <p>土豆文库</p>
               <div className="flex gap-6">
                 <span>薯ICP备2025000721号-1</span>
                 <span>本站内容来自互联网，版权归原作者所有。不代表本站立场。</span>

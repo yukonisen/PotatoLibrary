@@ -20,3 +20,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## License
+
+- Code: MIT License (see `LICENSE`).
+- Content (book text/data under `data`): CC BY-NC-SA 4.0 (see `LICENSE-CONTENT`).
