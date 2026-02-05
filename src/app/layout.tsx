@@ -1,6 +1,8 @@
 import type {Metadata} from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Link from "next/link";
+import { MatomoAnalytics } from "./matomo";
 
 export const metadata: Metadata = { title: "土豆文库" };
 
@@ -96,6 +98,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        <Suspense fallback={null}>
+          <MatomoAnalytics />
+        </Suspense>
       </body>
     </html>
   );
