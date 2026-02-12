@@ -1,0 +1,28 @@
+title: "夜鱼的日常"
+author: "yukonisen"
+publisher: "土豆文库"
+hotScore: 900
+isFinished: true
+isAnnualBest: true
+cover: "/daily-of-nf.jpg"
+tags:
+  - { key: "nightfish", name: "夜鱼酱" }
+  - { key: "daily", name: "日常" }
+intro: |
+  很难相信有人能做到不好奇夜鱼酱的日常是什么样的，接下来就带大家一起看看吧！
+
+volumes:
+  - name: "第一卷"
+    chapters:
+      - id: "c1"
+        title: "干夜鱼的一百种方法"
+        content: |
+          话说很久以前，有只叫做夜鱼的狐狸，他终日与他人交尾……
+      - id: "c2"
+        title: "夜鱼的学校生活"
+        content: |
+          话说很久以前，有只叫做夜鱼的狐狸，他每日接受着A高附中的折磨
+      - id: "c3"
+        title: "神秘章节"
+        content: |
+          Ciallo~(∠・ω< )⌒☆
