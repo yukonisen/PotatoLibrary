@@ -31,7 +31,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
           <h1 className="text-3xl font-extrabold text-on-surface mb-2">{book.title}</h1>
           <p className="text-secondary text-lg mb-6 font-medium">{book.subtitle}</p>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm py-6 border-y border-secondary/30 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-6 text-sm py-6 border-y border-secondary/30 mb-6">
             <div>
               <p className="text-secondary mb-1">作者</p>
               <p className="font-bold text-on-surface">{book.author}</p>
@@ -49,6 +49,10 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
               <p className={`font-bold ${book.isFinished ? 'text-green-600' : 'text-primary'}`}>
                 {book.isFinished ? '已完结' : '连载中'}
               </p>
+            </div>
+            <div>
+              <p className="text-secondary mb-1">文库</p>
+              <p className="font-bold text-on-surface">{book.publisher}</p>
             </div>
           </div>
 
