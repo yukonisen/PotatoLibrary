@@ -1,4 +1,5 @@
 import {getAllBooks} from "@/lib/db";
+import BookCard from "@/components/book-card";
 import Link from "next/link";
 import {notFound} from "next/navigation";
 
@@ -31,34 +32,11 @@ export default async function CategoryDetailPage({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredBooks.map((book) => (
-          <Link 
-            href={`/book/${book.id}`} 
+          <BookCard
             key={book.id}
-            className="group flex gap-4 p-4 bg-surface border border-secondary/30 rounded-2xl hover:border-primary hover:shadow-lg transition-all"
-          >
-            <div className="w-20 h-28 shrink-0 overflow-hidden rounded-lg bg-surface">
-              <img 
-                src={book.cover} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                alt={book.title}
-              />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <h2 className="font-bold text-on-surface group-hover:text-primary truncate mb-1">
-                {book.title}
-              </h2>
-              <p className="text-sm text-secondary mb-2">{book.author}</p>
-              <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
-                {book.intro}
-              </p>
-              <div className="mt-3 flex gap-2">
-                <span className="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded">
-                  {book.isFinished ? '已完结' : '连载中'}
-                </span>
-              </div>
-            </div>
-          </Link>
+            book={book}
+            href={`/book/${book.id}`}
+          />
         ))}
       </div>
 

@@ -1,4 +1,5 @@
 import {getBookById} from "@/lib/db";
+import {formatUpdateDate, formatWordCount} from "@/lib/format";
 import Link from "next/link";
 import {notFound} from "next/navigation";
 
@@ -18,21 +19,6 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
   const book = await getBookById(id);
 
   if (!book) notFound();
-
-  const formatWordCount = (count: number) => {
-    if (count >= 10000) return `${(count / 10000).toFixed(1)} 万字`;
-    return `${count} 字`;
-  };
-
-  const formatUpdateDate = (date: Date | string) => {
-    const parsed = new Date(date);
-    if (Number.isNaN(parsed.getTime())) return "未知";
-    return parsed.toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-  };
 
   return (
     <div className="max-w-4xl mx-auto">

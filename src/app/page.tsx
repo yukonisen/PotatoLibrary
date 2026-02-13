@@ -1,4 +1,6 @@
 import {getAllBooks} from "@/lib/db";
+import BookCard from "@/components/book-card";
+import {formatUpdateDate} from "@/lib/format";
 import Link from "next/link";
 
 export default async function Home() {
@@ -9,30 +11,17 @@ export default async function Home() {
   const annualBest = books.filter(b => b.isAnnualBest);
   const potential = books.filter(b => !b.isFinished && b.hotScore < 5000).slice(0, 3);
 
-  const formatUpdateDate = (date: Date | string) => {
-    const parsed = new Date(date);
-    if (Number.isNaN(parsed.getTime())) return "未知";
-    return parsed.toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-  };
-
   return (
     <div className="space-y-16 pb-20">
       <section>
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">年度最佳作品</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {annualBest.map(book => (
-            <Link href={`/book/${book.id}`} key={book.id} className="flex bg-primary/10 rounded-xl p-4 border border-primary/30 hover:shadow-md transition">
-              <img src={book.cover} className="w-24 h-32 object-cover rounded shadow-sm mr-4" />
-              <div>
-                <h3 className="font-bold text-lg">{book.title}</h3>
-                <p className="text-sm text-secondary mb-2">{book.author}</p>
-                <p className="text-xs text-secondary line-clamp-2 italic">“{book.intro}”</p>
-              </div>
-            </Link>
+            <BookCard
+              key={book.id}
+              book={book}
+              href={`/book/${book.id}`}
+            />
           ))}
         </div>
       </section>

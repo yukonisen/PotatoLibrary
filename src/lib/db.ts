@@ -4,6 +4,31 @@ import yaml from 'js-yaml';
 
 const booksDirectory = path.join(process.cwd(), 'data', 'books');
 
+function calculateWordCount(volumes: any[] = []) {
+  return volumes.reduce((total: number, vol: any) => {
+    return total + (vol.chapters?.reduce((sum: number, ch: any) => sum + (ch.content?.length || 0), 0) || 0);
+  }, 0);
+}
+
+function resolveLastUpdated(data: any, fileStats: fs.Stats) {
+  const manualDate = data?.updatedAt ? new Date(data.updatedAt) : null;
+  if (manualDate && !Number.isNaN(manualDate.getTime())) {
+    return manualDate;
+  }
+
+  // In some deployment environments, mtime can be stale (e.g. bundled artifact timestamp).
+  // Use the latest available file timestamp to keep list/detail pages consistent.
+  const candidates = [fileStats.mtime, fileStats.ctime, fileStats.birthtime]
+    .map((d) => new Date(d))
+    .filter((d) => !Number.isNaN(d.getTime()));
+
+  if (candidates.length === 0) {
+    return new Date();
+  }
+
+  return new Date(Math.max(...candidates.map((d) => d.getTime())));
+}
+
 export async function getBookById(id: string) {
   try {
     let fullPath = path.join(booksDirectory, `${id}.yaml`);
@@ -17,11 +42,9 @@ export async function getBookById(id: string) {
     const fileStats = fs.statSync(fullPath);
     const book = yaml.load(fileContents) as any;
 
-    const wordCount = book.volumes?.reduce((total: number, vol: any) => {
-      return total + (vol.chapters?.reduce((sum: number, ch: any) => sum + (ch.content?.length || 0), 0) || 0);
-    }, 0) || 0;
+    const wordCount = calculateWordCount(book.volumes);
 
-    return { id, ...book, wordCount, lastUpdated: fileStats.mtime };
+    return { id, ...book, wordCount, lastUpdated: resolveLastUpdated(book, fileStats) };
   } catch (e) {
     console.error("YAML 解析失败:", e);
     return null;
@@ -41,7 +64,7 @@ export async function getAllBooks() {
       const fileStats = fs.statSync(fullPath);
       try {
         const data = yaml.load(fileContents) as any;
-        return { id, ...data, lastUpdated: fileStats.mtime };
+        return { id, ...data, wordCount: calculateWordCount(data.volumes), lastUpdated: resolveLastUpdated(data, fileStats) };
       } catch (e) {
         return null;
       }

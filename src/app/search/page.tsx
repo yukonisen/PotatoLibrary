@@ -1,4 +1,5 @@
 import {getAllBooks} from "@/lib/db";
+import BookCard from "@/components/book-card";
 import Link from "next/link";
 
 export default async function SearchPage({ 
@@ -40,60 +41,20 @@ export default async function SearchPage({
       {results.length > 0 ? (
         <div className="grid gap-6">
           {results.map(book => (
-            <Link 
-              href={`/book/${book.id}`} 
-              key={book.id} 
-              className="flex gap-5 p-5 bg-surface border border-secondary/30 rounded-2xl hover:border-primary hover:shadow-lg transition-all group"
-            >
-              <div className="relative w-24 h-32 flex-shrink-0">
-                <img 
-                  src={book.cover} 
-                  className="w-full h-full object-cover rounded-lg shadow-sm group-hover:scale-105 transition-transform" 
-                  alt={book.title} 
-                />
-              </div>
-
-              <div className="flex-1 min-w-0 flex flex-col justify-center">
-                <h2 className="text-lg font-bold text-on-surface group-hover:text-primary truncate mb-1">
-                  {book.title}
-                </h2>
-                {book.subtitle ? (
-                  <p className="text-sm text-secondary line-clamp-1 mb-2">
-                    {book.subtitle}
-                  </p>
-                ) : null}
-                <div className="flex items-center gap-3 text-sm text-secondary mb-3 flex-wrap">
-                  <span className={searchType === "author" ? "bg-primary/10 text-primary px-1.5 rounded" : ""}>
-                    {book.author}
-                  </span>
-                  <span>|</span>
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    {book.tags?.length ? (
-                      book.tags.map((tag: { key: string; name: string }) => (
-                        <span key={tag.key} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs">
-                          #{tag.name}
-                        </span>
-                      ))
-                    ) : (
-                      <span>未分类</span>
-                    )}
-                  </div>
-                  <span>|</span>
-                  <span className={book.isFinished ? "text-green-600" : "text-blue-600"}>
-                    {book.isFinished ? "已完结" : "连载中"}
-                  </span>
-                </div>
-                <p className="text-sm text-secondary line-clamp-2 leading-relaxed">
-                  {book.intro}
-                </p>
-              </div>
-
-              <div className="hidden md:flex items-center text-secondary group-hover:text-primary">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </Link>
+            <BookCard
+              key={book.id}
+              book={book}
+              href={`/book/${book.id}`}
+              coverWrapperClassName="relative w-24 h-32"
+              coverImageClassName="w-full h-full object-cover rounded-lg shadow-sm group-hover:scale-105 transition-transform"
+              contentClassName="flex-1 min-w-0 flex flex-col justify-center"
+              titleClassName="text-lg font-bold text-on-surface group-hover:text-primary truncate mb-1"
+              introClassName="text-sm text-secondary line-clamp-2 leading-relaxed mb-2"
+              tagTextClassName="text-secondary text-xs"
+              statusRowClassName="flex flex-wrap items-center gap-2 text-xs"
+              highlightAuthor={searchType === "author"}
+              showChevron
+            />
           ))}
         </div>
       ) : (
