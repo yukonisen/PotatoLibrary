@@ -57,12 +57,27 @@ export default async function SearchPage({
                 <h2 className="text-lg font-bold text-on-surface group-hover:text-primary truncate mb-1">
                   {book.title}
                 </h2>
-                <div className="flex items-center gap-3 text-sm text-secondary mb-3">
+                {book.subtitle ? (
+                  <p className="text-sm text-secondary line-clamp-1 mb-2">
+                    {book.subtitle}
+                  </p>
+                ) : null}
+                <div className="flex items-center gap-3 text-sm text-secondary mb-3 flex-wrap">
                   <span className={searchType === "author" ? "bg-primary/10 text-primary px-1.5 rounded" : ""}>
                     {book.author}
                   </span>
                   <span>|</span>
-                  <span>{book.tags?.[0]?.name}</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {book.tags?.length ? (
+                      book.tags.map((tag: { key: string; name: string }) => (
+                        <span key={tag.key} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs">
+                          #{tag.name}
+                        </span>
+                      ))
+                    ) : (
+                      <span>未分类</span>
+                    )}
+                  </div>
                   <span>|</span>
                   <span className={book.isFinished ? "text-green-600" : "text-blue-600"}>
                     {book.isFinished ? "已完结" : "连载中"}
