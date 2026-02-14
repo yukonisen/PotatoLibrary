@@ -3,6 +3,22 @@ import BookCard from "@/components/book-card";
 import {formatUpdateDate} from "@/lib/format";
 import Link from "next/link";
 
+function MoreLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      className="inline-flex items-center justify-center w-8 h-8 rounded-full text-secondary hover:text-primary hover:bg-primary/10 transition"
+    >
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="6" cy="12" r="1.8" />
+        <circle cx="12" cy="12" r="1.8" />
+        <circle cx="18" cy="12" r="1.8" />
+      </svg>
+    </Link>
+  );
+}
+
 export default async function Home() {
   const books = await getAllBooks();
   
@@ -14,7 +30,10 @@ export default async function Home() {
   return (
     <div className="space-y-16 pb-20">
       <section>
-        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">年度最佳作品</h2>
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <h2 className="text-2xl font-bold flex items-center gap-2">年度最佳作品</h2>
+          <MoreLink href="/list/annual-best" label="查看更多年度最佳作品" />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {annualBest.map(book => (
             <BookCard
@@ -29,7 +48,10 @@ export default async function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold mb-6">最近更新</h2>
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <h2 className="text-2xl font-bold">最近更新</h2>
+              <MoreLink href="/list/latest" label="查看更多最近更新" />
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               {latest.map(book => (
                 <Link href={`/book/${book.id}`} key={book.id} className="group">
@@ -44,7 +66,10 @@ export default async function Home() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold mb-4">潜力新书</h2>
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h2 className="text-xl font-bold">潜力新书</h2>
+              <MoreLink href="/list/potential" label="查看更多潜力新书" />
+            </div>
             <div className="space-y-4">
               {potential.length === 0 ? (
                 <div className="p-4 border border-secondary/30 rounded-lg text-sm text-secondary">
